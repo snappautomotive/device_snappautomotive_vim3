@@ -26,10 +26,14 @@ $(call inherit-product, frameworks/base/data/fonts/fonts.mk)
 
 PRODUCT_PACKAGES += \
 	android.hardware.automotive.vehicle@2.0-default-service \
+	android.hardware.automotive.vehicle@V3-default-service \
 	android.hardware.broadcastradio@2.0-service \
+	android.hardware.broadcastradio \
+	android.automotive.evs.manager@1.1 \
 	android.hardware.automotive.remoteaccess@V2-default-service \
 	android.hardware.automotive.ivn@V1-default-service \
 	CarConnectivityOverlay \
+	CarWifiOverlay \
 	librs_jni
 
 PRODUCT_COPY_FILES += \
@@ -38,11 +42,16 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
 	frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml \
 	frameworks/native/data/etc/android.hardware.broadcastradio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.broadcastradio.xml \
-	frameworks/native/data/etc/android.hardware.type.automotive.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.type.automotive.xml \
 	frameworks/native/data/etc/android.hardware.screen.landscape.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.screen.landscape.xml \
+	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
+	frameworks/native/data/etc/android.hardware.type.automotive.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.type.automotive.xml \
+	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
+	frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
+	frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+	frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
 	frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml \
 	frameworks/native/data/etc/android.software.activities_on_secondary_displays.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.activities_on_secondary_displays.xml \
-	frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml \
+	frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
 	device/generic/car/common/android.hardware.disable.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.ar.xml \
 	device/generic/car/common/android.hardware.disable.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.autofocus.xml \
 	device/generic/car/common/android.hardware.disable.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.concurrent.xml \
@@ -77,6 +86,20 @@ PRODUCT_PACKAGES_DEBUG += \
 	canhalctrl \
 	canhaldump \
 	canhalsend
+
+# Occupant Awareness
+
+PRODUCT_PACKAGES_DEBUG += \
+	android.hardware.automotive.occupant_awareness@1.0-service \
+	android.hardware.automotive.occupant_awareness@1.0-service_mock
+
+# Sepolicy for occupant awareness system
+include packages/services/Car/car_product/occupant_awareness/OccupantAwareness.mk
+
+PRODUCT_PROPERTY_OVERRIDES += \
+        ro.boot.wificountrycode=00 \
+        ro.config.media_vol_default=0 \
+        log.tag.CarTrustAgentUnlockEvent=I
 
 PRODUCT_NAME := snapp_car_vim3
 PRODUCT_MODEL := SnappOS for VIM3
