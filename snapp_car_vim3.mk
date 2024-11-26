@@ -4,6 +4,21 @@ TARGET_USE_TABLET_LAUNCHER := true
 BOARD_IS_AUTOMOTIVE := true
 PRODUCT_DISPLAY_DENSITY := 160
 
+# EVS - Use the mocked EVS from the emulator builds. This can be replaced
+# with a full EVS HAL implementation to integrate with the VIM3 hardware
+# at a later date.
+ENABLE_EVS_SAMPLE := false
+ENABLE_EVS_SERVICE := true
+ENABLE_MOCK_EVSHAL := true
+ENABLE_SAMPLE_EVS_APP := false
+
+ENABLE_CAREVSSERVICE_SAMPLE := true
+
+ENABLE_CAMERA_SERVICE := true
+ENABLE_REAR_VIEW_CAMERA_SAMPLE := true
+
+ENABLE_CARTELEMETRY_SERVICE := true
+
 $(call inherit-product, device/snappautomotive/common/additions.mk)
 $(call inherit-product, device/amlogic/yukawa/yukawa.mk)
 $(call inherit-product, packages/services/Car/car_product/build/car.mk)
@@ -52,20 +67,6 @@ PRODUCT_COPY_FILES += \
 
 DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE += \
 	device/snappautomotive/vim3/automotive_framework_compatibility_matrix.xml
-
-# EVS - Use the mocked EVS from the emulator builds. This can be replaced
-# with a full EVS HAL implementation to integrate with the VIM3 hardware
-# at a later date.
-ENABLE_EVS_SAMPLE ?= false
-ENABLE_EVS_SERVICE ?= true
-ENABLE_MOCK_EVSHAL ?= true
-ENABLE_CAREVSSERVICE_SAMPLE ?= false
-ENABLE_SAMPLE_EVS_APP ?= false
-ENABLE_CARTELEMETRY_SERVICE ?= false
-ifeq ($(ENABLE_MOCK_EVSHAL), true)
-CUSTOMIZE_EVS_SERVICE_PARAMETER := true
-endif  # ENABLE_MOCK_EVSHAL
-$(call inherit-product, device/generic/car/emulator/evs/evs.mk)
 
 # CAN bus support - We don't have a direct hardware interface on the
 # VIM3, but there are dongles which can provide CAN bus connectivity
