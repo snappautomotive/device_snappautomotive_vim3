@@ -78,7 +78,7 @@ PRODUCT_COPY_FILES += \
 	packages/services/Car/car_product/init/init.bootstat.rc:root/init.bootstat.rc \
 	packages/services/Car/car_product/init/init.car.rc:root/init.car.rc
 
-DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE += \
+DEVICE_MANIFEST_FILE += \
 	device/snappautomotive/vim3/automotive_framework_compatibility_matrix.xml
 
 # CAN bus support - We don't have a direct hardware interface on the
