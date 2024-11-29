@@ -79,7 +79,7 @@ PRODUCT_COPY_FILES += \
 	packages/services/Car/car_product/init/init.car.rc:root/init.car.rc
 
 DEVICE_MANIFEST_FILE += \
-	device/snappautomotive/vim3/automotive_framework_compatibility_matrix.xml
+	device/snappautomotive/vim3/manifest.xml
 
 # CAN bus support - We don't have a direct hardware interface on the
 # VIM3, but there are dongles which can provide CAN bus connectivity
