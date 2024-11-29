@@ -29,7 +29,6 @@ PRODUCT_PACKAGES += \
 	android.hardware.automotive.vehicle@V3-default-service \
 	android.hardware.broadcastradio@2.0-service \
 	android.hardware.broadcastradio \
-	android.automotive.evs.manager@1.1 \
 	android.hardware.automotive.remoteaccess@V2-default-service \
 	android.hardware.automotive.ivn@V1-default-service \
 	CarConnectivityOverlay \
@@ -75,7 +74,7 @@ PRODUCT_COPY_FILES += \
 	packages/services/Car/car_product/init/init.car.rc:root/init.car.rc
 
 DEVICE_MANIFEST_FILE += \
-	device/snappautomotive/vim3/automotive_framework_compatibility_matrix.xml
+	device/snappautomotive/vim3/manifest.xml
 
 # CAN bus support - We don't have a direct hardware interface on the
 # VIM3, but there are dongles which can provide CAN bus connectivity
