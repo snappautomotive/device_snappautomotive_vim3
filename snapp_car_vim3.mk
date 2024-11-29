@@ -78,4 +78,9 @@ PRODUCT_PACKAGES_DEBUG += \
 	canhalsend
 
 PRODUCT_NAME := snapp_car_vim3
-PRODUCT_MODEL := SnappOS for VIM3
+ifeq ($(SNAPP_MODEL),)
+PRODUCT_MODEL := Snapp Automotive build of Android Automotive OS for VIM3
+else
+PRODUCT_MODEL := $(SNAPP_MODEL)
+endif
+
