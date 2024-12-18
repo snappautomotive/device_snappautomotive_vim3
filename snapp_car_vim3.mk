@@ -19,6 +19,31 @@ ENABLE_REAR_VIEW_CAMERA_SAMPLE := true
 
 ENABLE_CARTELEMETRY_SERVICE := true
 
+# CarServiceHelperService accesses the hidden api in the system server.
+SYSTEM_OPTIMIZE_JAVA := false
+
+DEVICE_FRAMEWORK_MANIFEST_FILE += device/google_car/common/manifest.xml
+
+# generic_system.mk sets 'PRODUCT_ENFORCE_RRO_TARGETS := *'
+# but this breaks phone_car. So undo it here.
+PRODUCT_ENFORCE_RRO_TARGETS :=
+
+# Enable mainline checking
+PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := false
+
+# Set Car Service RRO
+PRODUCT_PACKAGES += CarServiceOverlayPhoneCar
+GOOGLE_CAR_SERVICE_OVERLAY += CarServiceOverlayPhoneCarGoogle
+
+# Additional selinux policy
+BOARD_SEPOLICY_DIRS += device/google_car/common/sepolicy
+
+# Override heap growth limit due to high display density on device
+PRODUCT_PROPERTY_OVERRIDES += \
+            dalvik.vm.heapgrowthlimit=256m
+
+PRODUCT_PACKAGE_OVERLAYS += device/google_car/common/overlay
+
 $(call inherit-product, device/snappautomotive/common/additions.mk)
 $(call inherit-product, device/amlogic/yukawa/yukawa.mk)
 $(call inherit-product, packages/services/Car/car_product/build/car.mk)
@@ -84,7 +109,37 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES_DEBUG += \
 	canhalctrl \
 	canhaldump \
-	canhalsend
+	canhalsend \
+	android.hardware.automotive.occupant_awareness@1.0-service \
+	android.hardware.automotive.occupant_awareness@1.0-service_mock
+
+BOARD_SEPOLICY_DIRS += device/google_car/common/sepolicy
+
+# Audio Control
+PRODUCT_PACKAGES += \
+            android.hardware.automotive.audiocontrol-service.example
+
+# Sepolicy for occupant awareness system
+include packages/services/Car/car_product/occupant_awareness/OccupantAwareness.mk
+
+# Sepolicy for compute pipe system
+include packages/services/Car/cpp/computepipe/products/computepipe.mk
+
+PRODUCT_COPY_FILES += \
+    device/google_car/common/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
+
+PRODUCT_PROPERTY_OVERRIDES += \
+        ro.boot.wificountrycode=00 \
+        ro.config.media_vol_default=0 \
+        log.tag.CarTrustAgentUnlockEvent=I
+
+# Phone car targets don't support ramdump
+EXCLUDE_BUILD_RAMDUMP_UPLOADER_DEBUG_TOOL := true
+
+# Disable RCS and EAB for phone car targets
+PRODUCT_PRODUCT_PROPERTIES += \
+        persist.rcs.supported=0 \
+        persist.eab.supported=0
 
 # Occupant Awareness
 
