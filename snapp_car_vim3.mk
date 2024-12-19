@@ -156,6 +156,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
         log.tag.CarTrustAgentUnlockEvent=I
 
 PRODUCT_NAME := snapp_car_vim3
+PRODUCT_CHARACTERISTICS := automotive
 ifeq ($(SNAPP_MODEL),)
 PRODUCT_MODEL := Snapp Automotive build of Android Automotive OS for VIM3
 else
