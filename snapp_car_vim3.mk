@@ -28,7 +28,7 @@ BOARD_SEPOLICY_DIRS += device/google_car/common/sepolicy
 PRODUCT_PROPERTY_OVERRIDES += \
             dalvik.vm.heapgrowthlimit=256m
 
-PRODUCT_PACKAGE_OVERLAYS += device/google_car/common/overlay
+PRODUCT_PACKAGE_OVERLAYS += device/snappautomotive/vim3/overlay
 
 $(call inherit-product, device/snappautomotive/common/additions.mk)
 $(call inherit-product, device/amlogic/yukawa/yukawa.mk)
