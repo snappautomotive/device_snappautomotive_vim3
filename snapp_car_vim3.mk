@@ -27,6 +27,9 @@ BOARD_SEPOLICY_DIRS += device/google_car/common/sepolicy
 PRODUCT_PROPERTY_OVERRIDES += \
             dalvik.vm.heapgrowthlimit=256m
 
+# Exclude the testing apps
+PRODUCT_IS_AUTOMOTIVE_SDK := true
+
 PRODUCT_PACKAGE_OVERLAYS += device/snappautomotive/vim3/overlay
 
 $(call inherit-product, device/snappautomotive/common/additions.mk)
