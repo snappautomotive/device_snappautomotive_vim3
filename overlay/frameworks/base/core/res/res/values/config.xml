@@ -29,9 +29,6 @@
     -->
     <integer name="config_longPressOnPowerBehavior">2</integer>
 
-    <!-- Disable lockscreen sound effect -->
-    <integer name="def_lockscreen_sounds_enabled">0</integer>
-
     <!-- This device is not "voice capable"; it's data-only. -->
     <bool name="config_voice_capable">false</bool>
 

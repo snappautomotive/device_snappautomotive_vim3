@@ -2,4 +2,6 @@
 
 PRODUCT_MAKEFILES := $(LOCAL_DIR)/snapp_car_vim3.mk 
 
-COMMON_LUNCH_CHOICES := snapp_car_vim3-eng
+COMMON_LUNCH_CHOICES := \
+    snapp_car_vim3-eng \
+    snapp_car_vim3-userdebug
