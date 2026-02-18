@@ -29,13 +29,30 @@ $(call inherit-product, device/amlogic/yukawa/yukawa.mk)
 # Bring in the base Android car product definition.
 $(call inherit-product, packages/services/Car/car_product/build/car.mk)
 
-PRODUCT_PRODUCT_PROPERTIES += \
-    ro.adb.secure=0 \
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/aosp_excluded_hardware.xml:system/etc/permissions/aosp_excluded_hardware.xml \
+    frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:system/etc/permissions/android.hardware.wifi.passpoint.xml \
+    frameworks/native/data/etc/android.software.activities_on_secondary_displays.xml:system/etc/permissions/android.software.activities_on_secondary_displays.xml \
+    device/generic/car/common/android.hardware.disable.xml:system/etc/permissions/android.hardware.camera.ar.xml \
+    device/generic/car/common/android.hardware.disable.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
+    device/generic/car/common/android.hardware.disable.xml:system/etc/permissions/android.hardware.camera.concurrent.xml \
+    device/generic/car/common/android.hardware.disable.xml:system/etc/permissions/android.hardware.camera.full.xml \
+    device/generic/car/common/android.hardware.disable.xml:system/etc/permissions/android.hardware.camera.front.xml \
+    device/generic/car/common/android.hardware.disable.xml:system/etc/permissions/android.hardware.camera.any.xml \
+    device/generic/car/common/android.hardware.disable.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+    device/generic/car/common/android.hardware.disable.xml:system/etc/permissions/android.hardware.camera.raw.xml \
+    device/generic/car/common/android.hardware.disable.xml:system/etc/permissions/android.hardware.fingerprint.xml \
+    device/generic/car/common/android.hardware.disable.xml:system/etc/permissions/android.hardware.wifi.direct.xml
+
+PRODUCT_PROPERTY_OVERRIDES += \
     android.car.drawer.unlimited=true \
     android.car.hvac.demo=true \
     com.android.car.radio.demo=true \
     com.android.car.radio.demo.dual=true \
     ro.hardware.egl=mali
+
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.adb.secure=0
 
 PRODUCT_PACKAGES += \
     librs_jni
